@@ -1,0 +1,463 @@
+
+:root {
+  --primary: #1a237e;
+  --secondary:rgba(241, 177, 0, 0.749);
+  --dark: #0a0a0a;  
+  --light: #1a1a1a;
+  --accent: #4a148c;
+  --bright-blue: #4169E1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  background: linear-gradient(146deg,#000000,#000000);
+  color: #fff;
+}
+
+.header {
+  min-height: 100vh;
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.logo-container {
+  position: relative;
+  margin-bottom: 2rem;
+  z-index: 2;
+}
+
+.logo {
+  width: 180px;
+  height: auto;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px var(--secondary));
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, rgba(255,215,0,0) 70%);
+  z-index: -1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  font-size: 3rem;/* Tamaño del texto */
+  color: linear-gradient(90deg, #FFD700, #FFC700, #FFB800);
+  margin-bottom: 1.5rem;
+  animation: slideIn 1s ease-out;
+  text-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.subtitle {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, var(--secondary), #ffa000);
+  color: var(--dark);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(45deg, var(--bright-blue), #1E90FF);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(51, 102, 255, 0.803);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 6px 20px rgba(65, 105, 225, 0.5);
+}
+
+.section {
+  padding: 5rem 2rem;
+  position: relative;
+  background: rgb(1, 0, 23);
+  text-align: center;
+}
+
+.section h2 {
+  color: var(--secondary);
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.benefit-card {
+  background: rgba(38, 50, 56, 0.8);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--secondary);
+}
+
+.benefit-card h3 {
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+
+.about-section {
+
+  background-color: rgba(38, 50, 56, 0.8);
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.about-section h2 {
+  color: var(--secondary);
+  margin-bottom: 2rem;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.testimonials {
+  overflow: hidden;
+  position: relative;
+  background: rgba(26, 35, 126, 0.2);
+  padding: 4rem 0;
+}
+
+.testimonial-slider {
+  display: flex;
+  transition: transform 0.5s;
+}
+
+.testimonial {
+  min-width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.testimonial cite {
+  color: var(--secondary);
+  display: block;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  .benefits { grid-template-columns: 1fr; }
+  .logo { width: 140px; }
+}
+
+.footer {
+  background: rgb(2,0,36);
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.social-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.social-icon::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.telegram::after {
+  box-shadow: 0 0 20px #0088cc;
+  background: radial-gradient(circle, rgba(0,136,204,0.2) 0%, transparent 70%);
+}
+
+.twitter::after {
+  box-shadow: 0 0 15px #fffefe;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.548) 0%, transparent 70%);
+}
+
+.youtube::after {
+  box-shadow: 0 0 20px #FF0000;
+  background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
+}
+
+.cmc::after {
+  box-shadow: 0 0 20px #0088cc;
+  background: radial-gradient(circle, rgba(0,136,204,0.2) 0%, transparent 70%);
+}
+
+.instagram::after {
+  box-shadow: 0 0 20px #8a3ab9;
+  background: radial-gradient(circle, rgba(138,58,185,0.2) 0%, transparent 70%);
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+}
+
+.social-icon:hover::after {
+  opacity: 1;
+}
+
+.social-icon:hover img {
+  transform: scale(1.1);
+}
+
+
+.email-link {
+  color: var(--secondary);
+  text-decoration: none;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.email-link::before {
+  content: '✉';
+  font-size: 1.2em;
+}
+
+.email-link:hover {
+  color: #fff;
+  text-shadow: 0 0 10px var(--secondary);
+}
+
+.copyright {
+  color: rgb(255, 255, 255);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+/* Ocultar el reproductor de audio */
+audio {
+  display: none;
+}
+
+/* Botón personalizado */
+.audio-control {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.audio-control:hover {
+  background-color: #0056b3;
+}
+
+
+/* Estilo general para centrar la sección */
+
+
+.contract-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: auto; /* Elimina espacio extra */
+  padding: 20px 0; /* Márgenes superior e inferior de 20px */
+  background-color: #12121200; /* Fondo oscuro para contraste */
+  color: white;
+  box-sizing: border-box;
+}
+
+/* Contenedor principal */
+.contract-info {
+  background: rgba(38, 50, 56, 0.8); /* Fondo transparente */
+  backdrop-filter: blur(10px); /* Efecto vidrio esmerilado */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Borde semitransparente */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Efecto hover */
+.contract-info:hover {
+  transform: scale(1.05); /* Aumenta el tamaño ligeramente */
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); /* Resalta la caja */
+}
+
+/* Título */
+.contract-info h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+/* Tabla de detalles */
+.contract-details {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Filas */
+.contract-item {
+  display: table-row;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Celdas */
+.contract-item span {
+  display: table-cell;
+  padding: 10px;
+  font-size: 1.1rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* Estilo para texto copiable */
+.copyable {
+  color: #00e6ff; /* Azul vibrante */
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.copyable:hover {
+  color: #00ffaa; /* Cambia de color al pasar el cursor */
+}
+
+/* Mensaje de copiado */
+#copy-message {
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #28a745; /* Verde para éxito */
+  font-weight: bold;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#copy-message.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .contract-info {
+    margin: 0 20px; /* Margen de 10px a los lados para el contenedor completo */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+  }
+
+  .copyable {
+    font-size: 0.9rem; /* Ajusta el tamaño del texto en móviles */
+    white-space: normal; /* Permite que el texto ocupe varias líneas */
+    word-break: break-word; /* Divide palabras largas automáticamente */
+    overflow-wrap: break-word; /* Asegura el ajuste en todos los navegadores */
+    text-align: left; /* Alinea el texto a la izquierda si es necesario */
+  }
+}
+

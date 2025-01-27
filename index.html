@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pirata Coin - Gana Tokens y Convierte Interacciones en Recompensas</title>
+  <link rel="icon" type="image/webp" href="img/logo.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div id="particles-js" class="particles"></div>
+    <div class="hero-content">
+      <div class="logo-container">
+        <img src="img/logo.webp" alt="task pay Logo" class="logo">
+      </div>
+      <h1>🎰Gana Tokens ⚓️Pirata Coin🚀</h1>
+      <p class="subtitle">🌟En Pirata Coin, te ofrecemos mayores recompensas que la competencia, ya que destinamos un porcentaje más alto de lo que pagan los clientes a nuestra comunidad 💰. ¡Transforma tus tareas sociales en ganancias reales y siente la diferencia! 💎🤝</p>
+      <div class="cta-buttons">
+        <!-- Aquí está el enlace al formulario -->
+        <a href="formulario/formulario.html" class="btn btn-primary">Regístrate Gratis</a>
+        <button class="btn btn-secondary">Iniciar Sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="about-section">
+    <h2>¿Qué es Pirata Coin?</h2>
+    <div class="about-content">
+      <p>Pirata Coin revoluciona la forma en que interactúas en redes sociales. Nuestra plataforma 
+      única combina la tecnología blockchain con el marketing digital, creando un ecosistema 
+      donde cada like, comentario y compartido tiene valor real. Los usuarios ganan tokens 
+      por participar activamente, mientras los anunciantes obtienen engagement orgánico y 
+      medible.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Beneficios Exclusivos</h2>
+    <div class="benefits">
+      <div class="benefit-card">
+        <h3>Gana Tokens Gratis</h3>
+        <p>Completa tareas sociales simples y acumula $PC sin inversión inicial. 
+        Cada interacción cuenta.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Marketing Verificado</h3>
+        <p>Anunciantes: accede a una red de usuarios reales y comprometidos. 
+        Obtén resultados medibles y transparentes.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Tecnología Blockchain</h3>
+        <p>Aprovecha la seguridad y transparencia de la blockchain para cada 
+        transacción y recompensa.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>Comunidad Global</h3>
+        <p>Únete a una comunidad internacional de entusiastas crypto y 
+        profesionales del marketing digital.</p>
+      </div>
+    </div>
+  </section>
+
+<!-- Sección de Contrato del Token -->
+
+<section class="contract-section">
+  <div class="contract-info">
+    <h2>Contrato del Token Pirata Coin</h2>
+    <div class="contract-details">
+      <div class="contract-item">
+        <span><strong>Nombre:</strong></span>
+        <span>Pirata Coin</span>
+      </div>
+      <div class="contract-item">
+        <span><strong>Símbolo:</strong></span>
+        <span>$PC</span>
+      </div>
+      <div class="contract-item">
+        <span><strong>Suministro Máximo:</strong></span>
+        <span>10,000,000,000 $PC</span>
+      </div>
+      <div class="contract-item">
+        <span><strong>Red:</strong></span>
+        <span>Solana</span>
+      </div>
+      <div class="contract-item">
+        <span><strong>⛓️ Contrato:</strong></span>
+        <span id="contract-address" class="copyable" onclick="copyContract()">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
+      </div>
+    </div>
+    <p id="copy-message" class="hidden">¡Contrato copiado!</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="social-links">
+    <a href="https://t.me/Pirata_Coin_Canal" target="_blank" class="social-icon telegram">
+      <img src="img/Telegram.webp" alt="Telegram">
+    </a>
+    <a href="https://x.com/PirataCoin_2025" target="_blank" class="social-icon twitter">
+      <img src="img/X.webp" alt="X">
+    </a>
+    <a href="https://www.youtube.com/@Pirata_Coin" target="_blank" class="social-icon youtube">
+      <img src="img/Youtube.webp" alt="YouTube">
+    </a>
+    <a href="https://coinmarketcap.com/community/profile/Pirata_Coin/" target="_blank" class="social-icon cmc">
+      <img src="img/Coin Market cap.webp" alt="CoinMarketCap">
+    </a>
+    <a href="https://www.instagram.com/Pirata_Coin/" target="_blank" class="social-icon instagram">
+      <img src="img/Instagram.webp" alt="Instagram">
+    </a>
+  </div>
+  <a href="mailto:dogeton2025@gmail.com" class="email-link">dogeton2025@gmail.com</a>
+  <p class="copyright">2025 Pirata Coin. All Rights Reserved.</p>
+</footer>
+
+
+  <!-- Audio de fondo -->
+  <audio id="background-audio" loop>
+    <source src="audio/audio.mp3" type="audio/mp3">
+    Tu navegador no soporta la reproducción de audio.
+  </audio>
+
+  <!-- Botón para controlar la música -->
+  <button class="audio-control" id="audio-toggle">🔇 Encender música</button>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+</body>
+</html>

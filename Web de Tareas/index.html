@@ -1,0 +1,423 @@
+  <title>Pirata Coin Tareas Online</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tonconnect/sdk@latest/dist/tonconnect-sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.js"></script>
+  <link rel="icon" type="image/x-icon" href="../img/logo.webp">
+  
+<link rel="stylesheet" href="style.css">
+<script src="main.js" defer></script>
+</head>
+<body>
+
+<div id="app" class="app">
+  <div class="top-bar">
+    <div class="logo-section">
+      <a href="https://dogeton2025.github.io/">
+        <img src="../img/logo.webp" alt="Logo" class="top-bar-logo">
+      </a>
+      <span class="logo-text">Pirata Coin Tareas Online</span>
+    </div>
+    <div class="balance">
+      {{balance}} $PC
+    </div>
+    
+    <div class="notifications">
+      <div class="notification-icon" @click="toggleNotifications">
+        &#x1f514; <span class="notification-count" v-if="notifications.length">{{notifications.length}}</span>
+      </div>
+      <div class="notification-dropdown" v-if="showNotifications">
+        <div v-for="notification in notifications" :key="notification.id" :class="[&apos;notification-item&apos;, notification.status]">
+          <div>{{notification.message}}</div>
+          <div>{{notification.time}}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="top-bar-profile">
+      <img :src="profilePic" v-if="profilePic" alt="Profile">
+      <div v-else>&#x1f464;</div>
+      <span>{{userData.username}}</span>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="card">
+      <div>Balance:</div>
+      <div class="balance">{{balance}} $PC</div>
+      <button class="btn deposit" @click="currentView = &apos;deposit&apos;">Depositar</button>
+      <button class="btn withdraw" @click="currentView = &apos;withdraw&apos;" :disabled="balance &lt; minWithdraw">
+        Retirar
+      </button>
+    </div>
+
+    <div class="dropdown" @click="toggleDropdown($event)">
+      <div class="nav-item">Ganar $PC </div>
+      <div class="dropdown-content">
+        <div class="dropdown-item" @click="currentView = &apos;tasks&apos;">
+          &#x1f4cb; Tareas Disponibles
+        </div>
+        <div class="dropdown-item" @click="currentView = &apos;ptc&apos;">
+          &#x1f4b5; PTC (Pago por Click)
+        </div>
+        <div class="dropdown-item" @click="currentView = &apos;vip&apos;">
+          &#x1f451; Tareas VIP
+        </div>
+      </div>
+    </div>
+    <div class="nav-item" :class="{active: currentView === &apos;create-task&apos;}" @click="currentView = &apos;create-task&apos;">
+      &#x2728; Crear Tarea
+    </div>
+    <div class="nav-item" :class="{active: currentView === &apos;news&apos;}" @click="currentView = &apos;news&apos;">
+      &#x1f4f0; Noticias
+    </div>
+    <div class="nav-item" :class="{active: currentView === &apos;support&apos;}" @click="currentView = &apos;support&apos;">
+      &#x1f3af; Soporte
+    </div>
+    <div class="nav-item" :class="{active: currentView === &apos;affiliates&apos;}" @click="currentView = &apos;affiliates&apos;">
+      &#x1f91d; Afiliados
+    </div>
+    <div class="nav-item" :class="{active: currentView === &apos;profile&apos;}" @click="currentView = &apos;profile&apos;">
+      &#x2699;&#xfe0f; Configuraci&#xf3;n
+    </div>
+    <div class="nav-item" :class="{active: currentView === &apos;account&apos;}" @click="currentView = &apos;account&apos;">
+      &#x1f464; Mi Cuenta
+    </div>
+  </div>
+
+  <div class="main-content">
+    <!-- Tasks View -->
+    <div v-if="currentView === &apos;tasks&apos;">
+      <h2>Tareas Disponibles</h2>
+      
+      <div class="task-grid">
+        <div v-for="task in tasks" :key="task.id" class="task-card">
+          <div class="timer" v-if="task.timer">{{task.timer}}:00</div>
+          <h3>{{task.title}}</h3>
+          <p>{{task.description}}</p>
+          <p>Recompensa: {{task.reward}} $PC</p>
+          <button class="btn" @click="startTask(task)">Realizar Tarea</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIP Tasks View -->
+    <div v-if="currentView === &apos;vip&apos;">
+      <h2>Tareas VIP</h2>
+      
+      <div class="task-grid">
+        <div v-for="task in vipTasks" :key="task.id" class="task-card">
+          <div class="timer" v-if="task.timer">{{task.timer}}:00</div>
+          <h3>&#x1f451; {{task.title}}</h3>
+          <p>{{task.description}}</p>
+          <p>Recompensa: {{task.reward}} Pirata Coin</p>
+          <button class="btn" @click="startTask(task)">Realizar Tarea VIP</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Task View -->
+    <div v-if="currentView === &apos;create-task&apos;">
+      <h2>Crear Nueva Tarea</h2>
+      
+      <div class="card">
+        <form @submit.prevent="createTask">
+          <div class="form-group">
+            <label>Tipo de Tarea</label>
+            <select v-model="newTask.type">
+              <optgroup label="Telegram">
+                <option value="telegram-group">Unirse a Grupos o Canales</option>
+                <option value="telegram-bot">Iniciar Bot</option>
+                <option value="telegram-reaction">Dejar una reacci&#xf3;n en la publicaci&#xf3;n</option>
+                <option value="telegram-comment">Dejar un comentario</option>
+              </optgroup>
+              <optgroup label="YouTube">
+                <option value="youtube-like">Dejar Like</option>
+                <option value="youtube-dislike">Dejar Dislike</option>
+                <option value="youtube-subscribe">Suscribirse al canal</option>
+                <option value="youtube-share">Compartir en redes sociales</option>
+                <option value="youtube-comment">Dejar un comentario</option>
+              </optgroup>
+              <optgroup label="Facebook">
+                <option value="facebook-group">Unirse a Grupos</option>
+                <option value="facebook-reaction">Dejar una reacci&#xf3;n en Publicaci&#xf3;n</option>
+                <option value="facebook-follow">Seguir p&#xe1;gina</option>
+                <option value="facebook-share">Compartir Publicaci&#xf3;n</option>
+                <option value="facebook-comment">Dejar un comentario</option>
+              </optgroup>
+              <optgroup label="Instagram">
+                <option value="instagram-follow">Seguir Cuenta</option>
+                <option value="instagram-like">Dejar un like</option>
+                <option value="instagram-share">Compartir Publicaci&#xf3;n</option>
+                <option value="instagram-comment">Dejar un comentario</option>
+              </optgroup>
+              <optgroup label="Twitter">
+                <option value="twitter-follow">Seguir Cuenta</option>
+                <option value="twitter-like">Dejar Like</option>
+                <option value="twitter-retweet">Retweetear</option>
+                <option value="twitter-comment">Dejar un comentario</option>
+              </optgroup>
+              <optgroup label="TikTok">
+                <option value="tiktok-follow">Seguir Cuenta</option>
+                <option value="tiktok-like">Dejar Like</option>
+                <option value="tiktok-share">Compartir Video</option>
+                <option value="tiktok-comment">Dejar un comentario</option>
+              </optgroup>
+              <optgroup label="VIP">
+                <option value="vip-app">Descargar App</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>T&#xed;tulo de la Tarea</label>
+            <input type="text" v-model="newTask.title" required>
+          </div>
+
+          <div class="form-group">
+            <label>Descripci&#xf3;n</label>
+            <textarea v-model="newTask.description" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Recompensa (Pirata Coin)</label>
+            <input type="number" v-model="newTask.reward" min="0.1" step="0.1" required>
+          </div>
+
+          <div class="form-group">
+            <label>Enlace de Verificaci&#xf3;n</label>
+            <input type="url" v-model="newTask.verificationLink">
+          </div>
+
+          <button class="btn" type="submit">Crear Tarea</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Deposit View -->
+    <div v-if="currentView === &apos;deposit&apos;" class="main-content">
+      <h2>Depositar Pirata Coin</h2>
+      <div class="card">
+        <div class="form-group">
+          <label>Cantidad</label>
+          <input type="number" v-model="depositAmount" min="0.1" step="0.1">
+        </div>
+        <button class="btn deposit" @click="deposit">Confirmar Dep&#xf3;sito</button>
+      </div>
+    </div>
+
+    <!-- Withdraw View -->
+    <div v-if="currentView === &apos;withdraw&apos;" class="main-content">
+      <h2>Retirar $PC Token</h2>
+      <div class="card">
+        <div class="form-group">
+          <label>Cantidad</label>
+          <input type="number" v-model="withdrawAmount" min="0.1" step="0.1">
+        </div>
+        <button class="btn withdraw" @click="withdraw" :disabled="withdrawAmount &lt; minWithdraw">
+          Confirmar Retiro (Min: {{minWithdraw}} #PC Token)
+        </button>
+      </div>
+    </div>
+
+    <!-- News View -->
+    <div v-if="currentView === &apos;news&apos;">
+      <h2>Noticias y Actualizaciones</h2>
+      
+      <div class="card" v-for="news in newsItems" :key="news.id">
+        <h3>{{news.title}}</h3>
+        <p>{{news.content}}</p>
+        <small>{{news.date}}</small>
+      </div>
+    </div>
+
+    <!-- Support View -->
+    <div v-if="currentView === &apos;support&apos;">
+      <h2>Centro de Soporte</h2>
+      
+      <div class="card">
+        <h3>Contacta con Nosotros</h3>
+        <div class="form-group">
+          <label>Asunto</label>
+          <input type="text" v-model="supportTicket.subject">
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea v-model="supportTicket.message"></textarea>
+        </div>
+        <button class="btn" @click="submitTicket">Enviar Ticket</button>
+      </div>
+      <div class="card">
+        <h3>Preguntas Frecuentes</h3>
+        <div v-for="faq in faqs" :key="faq.id">
+          <h4>{{faq.question}}</h4>
+          <p>{{faq.answer}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Affiliates View -->
+    <div v-if="currentView === &apos;affiliates&apos;">
+      <h2>Programa de Afiliados</h2>
+      
+      <div class="card">
+        <h3>Tu Enlace de Referido</h3>
+        <input type="text" :value="affiliateLink" readonly>
+        <button class="btn" @click="copyAffiliateLink">Copiar Enlace</button>
+      </div>
+      <div class="card">
+        <h3>Estad&#xed;sticas</h3>
+        <p>Referidos Activos: {{affiliateStats.activeReferrals}}</p>
+        <p>Ganancias Totales: {{affiliateStats.totalEarnings}} Pirata Coin</p>
+      </div>
+    </div>
+
+    <!-- Profile View -->
+    <div v-if="currentView === &apos;profile&apos;">
+      <h2>Configuraci&#xf3;n de Cuenta</h2>
+      
+      <div class="card">
+        <div class="profile-header">
+          <div class="profile-pic-container">
+            <div class="profile-pic" v-if="!profilePic">&#x1f464;</div>
+            <img v-else :src="profilePic" class="profile-pic" alt="Profile Picture">
+            <div class="edit-pic" @click="triggerFileInput">
+              &#x270f;&#xfe0f;
+            </div>
+            <input type="file" ref="fileInput" style="display: none" accept="image/*" @change="handleProfilePicChange">
+          </div>
+          <div>
+            <h3>Datos Personales</h3>
+            <p>Actualiza tu informaci&#xf3;n personal</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nombre de Usuario</label>
+          <input type="text" v-model="userData.username" placeholder="Tu nombre de usuario">
+        </div>
+
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" v-model="userData.firstName" placeholder="Tu nombre">
+        </div>
+
+        <div class="form-group">
+          <label>Apellidos</label>
+          <input type="text" v-model="userData.lastName" placeholder="Tus apellidos">
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" v-model="userData.email" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+          <label>Direcci&#xf3;n $PC Token</label>
+          <input type="text" v-model="userData.tonAddress" placeholder="Direcci&#xf3;n TASK PAY">
+        </div>
+
+        <button class="btn" @click="saveProfile">Guardar Cambios</button>
+      </div>
+
+      <div class="card">
+        <h3>Redes Sociales Conectadas</h3>
+        <div class="social-connect">
+          <button class="social-btn" @click="connectSocial(&apos;facebook&apos;)">
+            Facebook
+            <span class="social-status">{{socialStatus.facebook ? &apos;&#x2705;&apos; : &apos;&#x274c;&apos;}}</span>
+          </button>
+          <button class="social-btn" @click="connectSocial(&apos;twitter&apos;)">
+            Twitter
+            <span class="social-status">{{socialStatus.twitter ? &apos;&#x2705;&apos; : &apos;&#x274c;&apos;}}</span>
+          </button>
+          <button class="social-btn" @click="connectSocial(&apos;telegram&apos;)">
+            Telegram
+            <span class="social-status">{{socialStatus.telegram ? &apos;&#x2705;&apos; : &apos;&#x274c;&apos;}}</span>
+          </button>
+          <button class="social-btn" @click="connectSocial(&apos;youtube&apos;)">
+            YouTube
+            <span class="social-status">{{socialStatus.youtube ? &apos;&#x2705;&apos; : &apos;&#x274c;&apos;}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account View -->
+    <div v-if="currentView === &apos;account&apos;">
+      <h2>Mi Cuenta</h2>
+      
+      <div class="task-stats card">
+        <h3>Estad&#xed;sticas</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value">{{accountStats.tasksCompleted}}</div>
+            <div class="stat-label">Tareas Completadas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">{{accountStats.totalEarned}} TASK PAY</div>
+            <div class="stat-label">Total Ganado</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">{{accountStats.successRate}}%</div>
+            <div class="stat-label">Tasa de &#xc9;xito</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">{{accountStats.taskStreak}}</div>
+            <div class="stat-label">Racha de Tareas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-history card">
+        <h3>Historial de Tareas</h3>
+        <div class="task-list">
+          <div v-for="task in accountStats.recentTasks" :key="task.id" class="task-history-item">
+            <div class="task-history-title">{{task.title}}</div>
+            <div class="task-history-reward">{{task.reward}} $PC Token</div>
+            <div class="task-history-date">{{task.date}}</div>
+            <div class="task-history-status" :class="task.status">{{task.status}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="assigned-tasks card">
+        <h3>Mis Tareas Encargadas</h3>
+        <div class="task-list">
+          <div v-for="task in accountStats.assignedTasks" :key="task.id" class="task-history-item">
+            <div class="task-history-title">{{task.title}}</div>
+            <div class="task-history-reward">{{task.reward}} $PC Token</div>
+            <div class="task-history-date">{{task.date}}</div>
+            <div class="task-history-status" :class="task.status">{{task.status}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PTC View -->
+    <div v-if="currentView === &apos;ptc&apos;" class="main-content">
+      <h2>PTC - Pago por Click</h2>
+      <div class="task-grid">
+        <div v-for="task in ptcTasks" :key="task.id" class="task-card">
+          <div class="timer" v-if="task.timer">{{task.timer}}:00</div>
+          <h3>{{task.title}}</h3>
+          <p>{{task.description}}</p>
+          <p>Recompensa: {{task.reward}} $PC</p>
+          <a :href="task.url" target="_blank" class="btn" @click="startTask(task)">
+            Visitar Sitio
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update the network background div -->
+<div class="network-bg">
+  <!-- Nodes will be added dynamically by JS -->
+</div>
+
+
+
+
+
+</body>
+</html>
