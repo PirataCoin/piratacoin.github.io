@@ -354,230 +354,74 @@ audio {
 }
 
 
-/* Estilo general para centrar la sección */
-
-
-.contract-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: auto; /* Elimina espacio extra */
-  padding: 20px 0; /* Márgenes superior e inferior de 20px */
-  background-color: #12121200; /* Fondo oscuro para contraste */
-  color: white;
-  box-sizing: border-box;
-}
-
-/* Contenedor principal */
-.contract-info {
-  background: rgba(38, 50, 56, 0.8); /* Fondo transparente */
-  backdrop-filter: blur(10px); /* Efecto vidrio esmerilado */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Borde semitransparente */
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  max-width: 600px;
-  width: 100%;
-  text-align: center;
-  box-sizing: border-box;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-/* Efecto hover */
-.contract-info:hover {
-  transform: scale(1.05); /* Aumenta el tamaño ligeramente */
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); /* Resalta la caja */
-}
-
-/* Título */
-.contract-info h2 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-}
-
-/* Tabla de detalles */
-.contract-details {
-  display: table;
-  width: 100%;
-  border-collapse: collapse;
-}
-
-/* Filas */
-.contract-item {
-  display: table-row;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Celdas */
-.contract-item span {
-  display: table-cell;
-  padding: 10px;
-  font-size: 1.1rem;
-  text-align: left;
-  vertical-align: middle;
-}
-
-/* Estilo para texto copiable */
-.copyable {
-  color: #00e6ff; /* Azul vibrante */
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.copyable:hover {
-  color: #00ffaa; /* Cambia de color al pasar el cursor */
-}
-
-/* Mensaje de copiado */
-#copy-message {
-  margin-top: 15px;
-  font-size: 1rem;
-  color: #28a745; /* Verde para éxito */
-  font-weight: bold;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
-
-#copy-message.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-
-/* Media query para pantallas pequeñas */
-@media (max-width: 768px) {
-  .contract-info {
-    margin: 0 20px; /* Margen de 10px a los lados para el contenedor completo */
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+/* Estilos generales para la sección .token */
+.token {
+    background-color: #f8f9fa; /* Fondo suave */
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
   }
-
-  .copyable {
-    font-size: 0.9rem; /* Ajusta el tamaño del texto en móviles */
-    white-space: normal; /* Permite que el texto ocupe varias líneas */
-    word-break: break-word; /* Divide palabras largas automáticamente */
-    overflow-wrap: break-word; /* Asegura el ajuste en todos los navegadores */
-    text-align: left; /* Alinea el texto a la izquierda si es necesario */
-  }
-}
-
-/* Estilos generales */
-
-.info {
-    background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
-    color: #e0e0e0;
-    padding: 2rem 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 90%;
+  
+  .token .container {
+    max-width: 800px;
     margin: 0 auto;
-    padding: 2rem;
-    background: rgba(15, 15, 15, 0.95);
-    border-radius: 12px;
-    box-shadow: 0 0 30px rgba(0, 150, 255, 0.1);
-    border: 1px solid rgba(0, 150, 255, 0.1);
-}
-
-h1 {
-    color: #00b4ff;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+  }
+  
+  /* Encabezado */
+  .token header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
     text-align: center;
-    text-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
-    border-bottom: 2px solid #0066ff;
-    padding-bottom: 1rem;
-}
-
-h2 {
-    color: #00e1ff;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
-    position: relative;
-    padding-left: 1rem;
-}
-
-h2::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 70%;
-    background: linear-gradient(to bottom, #00b4ff, #0066ff);
-    border-radius: 2px;
-}
-
-p {
-    margin-bottom: 1.2rem;
-    font-size: 1.1rem;
-    color: #c0c0c0;
-}
-
-ul {
-    margin: 1.5rem 0;
-    padding-left: 1.5rem;
-}
-
-li {
-    margin-bottom: 0.8rem;
-    padding-left: 1rem;
-    position: relative;
-}
-
-li::before {
-    content: '▹';
-    position: absolute;
-    left: -1rem;
-    color: #00b4ff;
+    color: #2c3e50;
+  }
+  
+  .token header h3 {
     font-size: 1.2rem;
-}
-
-/* Efectos hover para elementos interactivos */
-h2:hover {
-    text-shadow: 0 0 10px rgba(0, 180, 255, 0.5);
-    transition: text-shadow 0.3s ease;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        max-width: 100%;
-        padding: 1.5rem;
-        border-radius: 0;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #7f8c8d;
+  }
+  
+  /* Estilos para el artículo */
+  .token article p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .token article h2 {
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+  }
+  
+  .token article ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .token article ul li {
+    margin-bottom: 10px;
+  }
+  
+  /* Adaptabilidad para pantallas pequeñas */
+  @media (max-width: 600px) {
+    .token {
+      padding: 30px 15px;
     }
-
-    h1 {
-        font-size: 1.8rem;
-        padding: 0 1rem 1rem;
+    .token header h1 {
+      font-size: 1.6rem;
     }
-
-    h2 {
-        font-size: 1.4rem;
+    .token header h3 {
+      font-size: 1rem;
     }
-
-    p {
-        font-size: 1rem;
+    .token article h2 {
+      font-size: 1.3rem;
     }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 1rem;
+    .token article p, 
+    .token article ul li {
+      font-size: 0.95rem;
     }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    h2 {
-        font-size: 1.3rem;
-    }
-}
-
-
-
+  }
+  
