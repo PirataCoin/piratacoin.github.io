@@ -462,14 +462,7 @@ audio {
 }
 
 /* Estilos generales */
-body {
-    margin: 0;
-    font-family: 'Pirata One', cursive; /* Fuente estilo pirata */
-    background-color: #0a1f3e; /* Fondo oscuro como el mar profundo */
-    color: #fff; /* Texto blanco para contraste */
-    line-height: 1.6;
-    padding: 20px;
-    text-align: center;
+
   }
   
   h1 {
@@ -480,6 +473,7 @@ body {
   }
   
   .container {
+    text-align: center;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
