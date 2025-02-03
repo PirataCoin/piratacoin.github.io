@@ -356,10 +356,11 @@ audio {
 
 /* Estilos generales para la sección .token */
 .token {
-    background-color: #f8f9fa; /* Fondo suave */
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,0,61,1) 35%, rgba(0,2,38,1) 100%);
     padding: 40px 20px;
     font-family: Arial, sans-serif;
-    color: #333;
+    color: #f1fffe;
   }
   
   .token .container {
@@ -372,14 +373,14 @@ audio {
     font-size: 2rem;
     margin-bottom: 10px;
     text-align: center;
-    color: #2c3e50;
+    color: #fff131;
   }
   
   .token header h3 {
     font-size: 1.2rem;
     text-align: center;
     margin-bottom: 30px;
-    color: #7f8c8d;
+    color: #ff4848;
   }
   
   /* Estilos para el artículo */
@@ -392,7 +393,7 @@ audio {
     font-size: 1.5rem;
     margin-top: 30px;
     margin-bottom: 15px;
-    color: #2c3e50;
+    color: #17ff9e;
   }
   
   .token article ul {
